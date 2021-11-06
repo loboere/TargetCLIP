@@ -42,7 +42,7 @@ def get_lr(t, initial_lr, rampdown=0.75, rampup=0.005):
 
 def main(args):
     g_ema = load_model(args)
-
+    n=0
     dir_name = args.dir_name
 
     if not os.path.exists(dir_name):
@@ -74,8 +74,8 @@ def main(args):
         else:
             data = torch.load(args.data_path)
             for n in range(NUM_IMAGES):
-                with torch.no_grad():
-                    latents[n] = data[n].unsqueeze(0).cuda()
+                with torch.no_grad():###############################################
+                    latents[n] = data[n+3].unsqueeze(0).cuda()
                     latents[n].requires_grad = False
         latents = torch.cat(latents)
 
@@ -182,6 +182,8 @@ def main(args):
             with torch.no_grad():
 
                 if loss < opt_loss:
+                    
+                    print("saved="+str(n))
                     numpy.save('{0}/direction{1}.npy'.format(args.dir_name, dir_idx),
                                direction.detach().cpu().numpy())
                     opt_loss = loss
@@ -198,7 +200,7 @@ def main(args):
                                                      f"{dir_name}/img_gen_amp_{dir_idx}_{j}.png",
                                                      normalize=True, range=(-1, 1))
 
-
+                   n+=1
 if __name__ == "__main__":
     torch.manual_seed(12345)
     parser = argparse.ArgumentParser()
