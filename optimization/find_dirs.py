@@ -200,7 +200,7 @@ def main(args):
                                                      f"{dir_name}/img_gen_amp_{dir_idx}_{j}.png",
                                                      normalize=True, range=(-1, 1))
 
-                   n+=1
+                    n+=1
 if __name__ == "__main__":
     torch.manual_seed(12345)
     parser = argparse.ArgumentParser()
