@@ -182,7 +182,7 @@ def main(args):
             with torch.no_grad():
 
                 if loss < opt_loss:
-                    
+                    #############################################################################################################################################
                     print("saved="+str(n))
                     numpy.save('{0}/direction{1}.npy'.format(args.dir_name, dir_idx),
                                direction.detach().cpu().numpy())
